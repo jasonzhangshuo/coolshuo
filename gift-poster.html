@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>净德小院 · 新年礼物</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #2a2a2a;
+            padding: 20px;
+        }
+
+        .poster {
+            width: 540px;
+            height: 960px;
+            background: linear-gradient(180deg,
+                #3d3328 0%,
+                #4a3f32 15%,
+                #5a4d3d 50%,
+                #4a3f32 85%,
+                #3d3328 100%
+            );
+            position: relative;
+            overflow: hidden;
+            font-family: 'Noto Serif SC', '宋体', serif;
+            color: #e8dfd0;
+        }
+
+        /* 背景纹理 */
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* 顶部装饰线 */
+        .top-decoration {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .decoration-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a86c, transparent);
+        }
+
+        .decoration-dot {
+            width: 6px;
+            height: 6px;
+            border: 1px solid #c9a86c;
+            transform: rotate(45deg);
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            padding-top: 70px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .location {
+            font-size: 14px;
+            letter-spacing: 8px;
+            color: #c9a86c;
+            margin-bottom: 8px;
+            font-weight: 300;
+        }
+
+        .title {
+            font-size: 28px;
+            letter-spacing: 12px;
+            color: #f5efe6;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #b8a88a;
+            margin-top: 12px;
+            font-weight: 300;
+        }
+
+        /* 图片区域 */
+        .image-container {
+            margin: 35px auto;
+            width: 420px;
+            height: 380px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-frame {
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(201, 168, 108, 0.3);
+            padding: 12px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 图片占位符（当没有实际图片时显示） */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #5a6b4a 0%, #4a5a3a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #d4c5a9;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .placeholder-brand {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #f0e6d3;
+        }
+
+        /* 文案区域 */
+        .content {
+            padding: 0 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .message {
+            font-size: 15px;
+            line-height: 2.4;
+            letter-spacing: 1px;
+            color: #e0d5c5;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        .message p {
+            margin-bottom: 8px;
+            text-indent: 2em;
+        }
+
+        .message .highlight {
+            color: #dbc596;
+        }
+
+        /* 祝福语 */
+        .blessing {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(201, 168, 108, 0.2);
+            text-align: center;
+        }
+
+        .blessing-text {
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: #c9a86c;
+            line-height: 2;
+            font-weight: 400;
+        }
+
+        /* 底部 */
+        .footer {
+            position: absolute;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .footer-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 168, 108, 0.5), transparent);
+        }
+
+        .lotus {
+            font-size: 18px;
+            color: #c9a86c;
+        }
+
+        .year {
+            font-size: 12px;
+            letter-spacing: 6px;
+            color: #9a8a6a;
+        }
+
+        /* 侧边装饰 */
+        .side-text {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            font-size: 11px;
+            letter-spacing: 8px;
+            color: rgba(201, 168, 108, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- 顶部装饰 -->
+        <div class="top-decoration">
+            <span class="decoration-line"></span>
+            <span class="decoration-dot"></span>
+            <span class="decoration-line"></span>
+        </div>
+
+        <!-- 标题 -->
+        <div class="header">
+            <div class="location">黄金海岸</div>
+            <div class="title">净德小院</div>
+            <div class="subtitle">一份小小的心意</div>
+        </div>
+
+        <!-- 图片区域 -->
+        <div class="image-container">
+            <div class="image-frame">
+                <!-- 使用实际图片时替换下面这行 -->
+                <!-- <img src="gift.jpg" alt="观夏香薰礼盒"> -->
+                <div class="image-placeholder">
+                    <div class="placeholder-brand">观夏</div>
+                    <div>to summer</div>
+                    <div style="margin-top: 20px; font-size: 12px; opacity: 0.7;">昆 · 茶</div>
+                    <div style="margin-top: 8px; font-size: 11px; opacity: 0.5;">香薰蜡烛礼盒</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文案内容 -->
+        <div class="content">
+            <div class="message">
+                <p>感恩师兄一路以来对小院的护持与付出，每一分用心，皆成<span class="highlight">清净因缘</span>。</p>
+                <p>新岁将启，愿师兄身心安稳，行走从容，所行皆善，所遇皆顺。</p>
+            </div>
+
+            <div class="blessing">
+                <div class="blessing-text">
+                    吉祥如意<br>
+                    心灯常明
+                </div>
+            </div>
+        </div>
+
+        <!-- 侧边文字 -->
+        <div class="side-text">愿此温暖相伴新岁</div>
+
+        <!-- 底部 -->
+        <div class="footer">
+            <div class="footer-decoration">
+                <span class="footer-line"></span>
+                <span class="lotus">◇</span>
+                <span class="footer-line"></span>
+            </div>
+            <div class="year">乙巳蛇年</div>
+        </div>
+    </div>
+</body>
+</html>
